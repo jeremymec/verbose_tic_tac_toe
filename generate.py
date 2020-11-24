@@ -25,20 +25,19 @@ print_board_statement = '{indent}print("{board_string}")'
 def it():
     global counter
     counter = 0
+    print(input_statement.format(indent=''))
     for y in range(3):
         for x in range(3):
-            print(input_statement.format(indent=''))
-            print(if_statement.format(indent='', y=y, x=x))
             iterate(deepcopy(board), x, y, 'X', 1)
 
 
 def iterate(board, move_x, move_y, move_val, depth):
-    # if (depth > 3): return
-    board[move_y][move_x] = move_val
-    print(print_board_statement.format(indent='  ' * depth, board_string=print_board(board)))
     if (depth > 8): return
-    print(input_statement.format(indent='  ' * depth))
-    print(if_statement.format(indent='  ' * depth, y=move_y, x=move_x))
+    print(if_statement.format(indent='  ' * (depth - 1), y=move_y, x=move_x))
+    board[move_y][move_x] = move_val
+    print(print_board_statement.format(indent='  ' * (depth), board_string=print_board(board)))
+    print(input_statement.format(indent='  ' * (depth)))
+
     for y in range(3):
         for x in range(3):
             if (board[y][x] == 0):
